@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+{% load bootstrap4 %}
+{% block container %}
+    <div class="container">
+        <h1>새글 작성 / Create a new post</h1>
+        <form method="post">
+            {%csrf_token%}
+            {%bootstrap_form post_form %}
+
+            <a href='http://publishsys.pythonanywhere.com/posts/list/'>Back to Home</a>
+            <button type="submit" class="btn btn-info">등록 / Enrollment</button>
+        </form>
+    </div>
+{%endblock%}

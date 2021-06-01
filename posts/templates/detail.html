@@ -1,0 +1,55 @@
+{% extends 'base.html'%}
+{% block container %}
+<script src = "/static/js/post.js"></script>
+    <div class="container">
+        <h1>글내용확인 / Check the content of the article</h1>
+        <h4>글번호 / Article no: {{detail.id}}</h4>>
+        <h4>작성자 / Writer: {{detail.author}}</h4>
+        <h4>내용 / Contents: {{detail.contents}}</h4>
+
+        <hr>
+        <button class="btn btn-info" onclick="new_post()">새 댓글 작성 / Create a new comment</button>
+        <div class = "m-2"></div>
+
+        <table class="table table-hover">
+            <thead class = "thead-light">
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Writer</th>
+                    <th scope="col">Comment</th>
+                    <th scope="col">수정 / Edit</th>
+                    <th scope="col">삭제 / Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for comment in posts.comments.all %}
+                <tr>
+                    <th scope="row">{{comment.post}}</th>
+                    <td>{{comment.created_date}}</td>
+                    <td>{{comment.author}}</td>
+                    <td>{{comment.text}}</td>
+                    <td>
+                        <a href = "{% url 'posts:edit' post.id %}" class="btn btn-secondary">수정 / Edit</a>
+                    </td>
+                    <td>
+                        <a href = "{% url 'posts:delete' post.id %}" class="btn btn-warning">삭제 / Delete</a>
+                    </td>
+                </tr>
+
+                <div class="comment">
+                    <div class="date">{{ comment.created_date }}</div>
+                    <strong>{{ comment.author }}</strong>
+                    <p>{{ comment.text|linebreaks }}</p>
+                </div>
+
+                {% empty %}
+                <p>댓글이 없습니다 / No Comments</p>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{%endblock%}
+
+
+

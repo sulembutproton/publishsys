@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+{% block container %}
+<script src = "/static/js/post.js"></script>
+    <div class="container">
+        <h1>게시판 / Bulletin Board</h1>
+        <button class="btn btn-info" onclick="new_post()">새글 작성 / Create a new post</button>
+        <div class = "m-1"></div>
+
+        <table class="table table-hover">
+            <thead class = "thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">작성자 / Writer</th>
+                    <th scope="col">내용 / Contents</th>
+                    <th scope="col">수정 / Edit</th>
+                    <th scope="col">삭제 / Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {%for post in posts %}
+                <tr>
+                    <th scope="row">{{post.id}}</th>
+                    <td>{{post.author}}</td>
+                    <td>{{post.contents}}</td>
+                    <td>
+                        <a href = "{% url 'posts:edit' post.id %}" class="btn btn-secondary">수정 / Edit</a>
+                    </td>
+                    <td>
+                        <a href = "{% url 'posts:delete' post.id %}" class="btn btn-warning">삭제 / Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{%endblock%}
